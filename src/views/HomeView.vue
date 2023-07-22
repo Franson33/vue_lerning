@@ -1,11 +1,22 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, computed, watch, onMounted } from 'vue'
+import { useHomeLifecycle } from './lifecycle'
 
 const appTitle = 'My cool app written in Vue'
 
 const counterData = reactive({
   counter: 0,
   title: 'My counter'
+})
+
+watch(() => counterData.counter, (current, prev) => {
+  if (counterData.counter >= 20) {
+    alert("It's 20")
+  }
+})
+
+onMounted(() => {
+  console.log('LOOK MOM, ITS ONMOUNTED 1!');
 })
 
 const oddOrEven = computed(() => {
@@ -19,7 +30,11 @@ const decrement = (amount) => {
   counterData.counter -= amount
 }
 
+onMounted(() => {
+  console.log('LOOK MOM, ITS ONMOUNTED 2!');
+})
 
+useHomeLifecycle()
 </script>
 
 <template>
