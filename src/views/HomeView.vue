@@ -1,6 +1,7 @@
 <script setup>
-import { reactive, computed, watch, onMounted } from 'vue'
+import { reactive, computed, watch } from 'vue'
 import { useHomeLifecycle } from './lifecycle'
+import { vAutofocus } from '@/directives/autofocus'
 
 const appTitle = 'My cool app written in Vue'
 
@@ -15,10 +16,6 @@ watch(() => counterData.counter, (current, prev) => {
   }
 })
 
-onMounted(() => {
-  console.log('LOOK MOM, ITS ONMOUNTED 1!');
-})
-
 const oddOrEven = computed(() => {
   return (counterData.counter & 1) === 0 ? 'even' : 'odd'
 })
@@ -29,10 +26,6 @@ const increment = (amount) => {
 const decrement = (amount) => {
   counterData.counter -= amount
 }
-
-onMounted(() => {
-  console.log('LOOK MOM, ITS ONMOUNTED 2!');
-})
 
 useHomeLifecycle()
 </script>
@@ -54,7 +47,7 @@ useHomeLifecycle()
 
     <div class="edit">
       <h2>Edit title</h2>
-      <input v-model="counterData.title" type=" text" />
+      <input v-model="counterData.title" v-autofocus type=" text" />
     </div>
 
   </div>
