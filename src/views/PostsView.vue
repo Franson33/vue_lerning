@@ -1,19 +1,29 @@
 <script setup>
+import { ref } from 'vue'
 import { vAutofocus } from '@/directives/autofocus'
+
+const posts = ref([
+  {
+    id: 'id1',
+    title: 'Post 1'
+  },
+  {
+    id: 'id2',
+    title: 'Post 2'
+  },
+  {
+    id: 'id3',
+    title: 'Post 3'
+  }
+])
 </script>
     
 <template>
   <div class="posts">
     <h1>Posts</h1>
     <ul>
-      <li>
-        <RouterLink to="/postsDetails/id1">Post 1</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/postsDetails/id2">Post 2</RouterLink>
-      </li>
-      <li>
-        <RouterLink to="/postsDetails/id3">Post 3</RouterLink>
+      <li v-for="post in posts" :key="post.id">
+        <RouterLink :to="`/postsDetails/${post.id}`">{{ post.title }}</RouterLink>
       </li>
     </ul>
     <textarea v-autofocus />

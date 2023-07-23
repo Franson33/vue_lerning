@@ -1,9 +1,11 @@
 <script setup>
-import { reactive, computed, watch } from 'vue'
-import { useHomeLifecycle } from './lifecycle'
+import { reactive, computed, watch, ref, nextTick } from 'vue'
+import { useHomeViewLifecycle } from '@/composable/useHomeViewLifecycle'
 import { vAutofocus } from '@/directives/autofocus'
 
 const appTitle = 'My cool app written in Vue'
+
+const appTitleRef = ref(null)
 
 const counterData = reactive({
   counter: 0,
@@ -20,14 +22,17 @@ const oddOrEven = computed(() => {
   return (counterData.counter & 1) === 0 ? 'even' : 'odd'
 })
 
-const increment = (amount) => {
+const increment = async (amount) => {
   counterData.counter += amount
+  await nextTick(async () => {
+    console.log('LOOK MOM, ITS UPDATED COUNTER!', counterData.counter);
+  })
 }
 const decrement = (amount) => {
   counterData.counter -= amount
 }
 
-useHomeLifecycle()
+useHomeViewLifecycle(appTitleRef)
 </script>
 
 <template>
@@ -35,7 +40,7 @@ useHomeLifecycle()
 
     <h2>{{ counterData.title }}:</h2>
 
-    <h2>{{ appTitle }}</h2>
+    <h2 ref="appTitleRef">{{ appTitle }}</h2>
 
     <button @click="decrement(2)" class="btn">--</button>
     <button @click="decrement(1)" class="btn">-</button>

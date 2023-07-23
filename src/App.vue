@@ -2,6 +2,7 @@
   <nav>
     <RouterLink to="/">Home</RouterLink>
     <RouterLink to="/posts">Posts</RouterLink>
+    <RouterLink to="/modals">ModalsView</RouterLink>
   </nav>
 
   <RouterView />
